@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.sonar.wsclient.SonarClient;
 import org.springframework.stereotype.Component;
+import sk.qbsw.sonarcleanuputility.configuration.provider.SonarClientProvider;
 import sk.qbsw.sonarcleanuputility.domain.model.SonarProjectSearchResult;
 import sk.qbsw.sonarcleanuputility.domain.port.out.SearchSonarProjectsPort;
 
@@ -16,15 +17,20 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class SearchSonarProjectsApiAdapter implements SearchSonarProjectsPort {
 
-    private final SonarClient sonarClient;
+    private final SonarClientProvider sonarClientProvider;
     private final ObjectMapper objectMapper;
 
     @Override
-    public SonarProjectSearchResult searchByAnalyzedBeforeAndName(String analyzedBefore, String name) throws JsonProcessingException {
+    public SonarProjectSearchResult searchByAnalyzedBeforeAndName(String analyzedBefore, String name) {
+        SonarClient sonarClient = sonarClientProvider.getSonarClient();
         Map<String, Object> params = new HashMap<>();
         params.put("analyzedBefore", analyzedBefore);
         params.put("q", name);
         String result = sonarClient.get("api/projects/search", params);
-        return objectMapper.readValue(result, SonarProjectSearchResult.class);
+        try {
+            return objectMapper.readValue(result, SonarProjectSearchResult.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e.getMessage());
+        }
     }
 }

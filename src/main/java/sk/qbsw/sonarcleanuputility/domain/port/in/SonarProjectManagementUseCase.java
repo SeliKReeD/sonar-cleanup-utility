@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SonarProjectManagementUseCase {
 
-    SonarProjectSearchResult searchByAnalyzedBeforeAndName(String analyzedBefore, String name) throws JsonProcessingException;
+    SonarProjectSearchResult searchByAnalyzedBeforeAndName(String analyzedBefore, String name);
 
     void bulkDelete(String analyzedBefore, String name);
 }

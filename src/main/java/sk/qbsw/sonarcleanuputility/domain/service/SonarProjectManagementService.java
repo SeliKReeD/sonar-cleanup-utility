@@ -21,7 +21,7 @@ public class SonarProjectManagementService implements SonarProjectManagementUseC
     private Logger LOG = LoggerFactory.getLogger(SonarProjectManagementService.class);
 
     @Override
-    public SonarProjectSearchResult searchByAnalyzedBeforeAndName(String analyzedBefore, String name) throws JsonProcessingException {
+    public SonarProjectSearchResult searchByAnalyzedBeforeAndName(String analyzedBefore, String name) {
         return searchSonarProjectsPort.searchByAnalyzedBeforeAndName(analyzedBefore, name);
     }
 

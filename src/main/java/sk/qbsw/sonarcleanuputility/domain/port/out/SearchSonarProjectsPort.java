@@ -5,5 +5,5 @@ import sk.qbsw.sonarcleanuputility.domain.model.SonarProjectSearchResult;
 
 public interface SearchSonarProjectsPort {
 
-    SonarProjectSearchResult searchByAnalyzedBeforeAndName(String analyzedBefore, String name) throws JsonProcessingException;
+    SonarProjectSearchResult searchByAnalyzedBeforeAndName(String analyzedBefore, String name);
 }

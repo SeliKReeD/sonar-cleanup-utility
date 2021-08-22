@@ -5,5 +5,10 @@ import sk.qbsw.sonarcleanuputility.domain.model.SonarAuthenticationValidationRes
 
 public interface SonarAuthenticationPort {
 
-    SonarAuthenticationValidationResult authenticate() throws JsonProcessingException;
+    void login(String root, String login, String password);
+
+    SonarAuthenticationValidationResult validate();
+
+    void logout();
+
 }
